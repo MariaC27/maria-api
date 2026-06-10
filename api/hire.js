@@ -43,13 +43,8 @@ export default async function handler(req, res) {
     });
 
     evaluation = JSON.parse(message.content[0].text);
-  } catch {
-    evaluation = {
-      match: true,
-      score: 0.9,
-      fit_notes: ["Strong design-to-code background", "Experience shipping with AI-powered tools"],
-      next_step: "Send a note to maria.h.cristoforo@gmail.com",
-    };
+  } catch (err) {
+    return res.status(500).json({ debug_error: err.message });
   }
 
   // Resend notification
