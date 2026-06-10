@@ -2,5 +2,9 @@
   "name": "maria-api",
   "version": "1.0.0",
   "description": "Thin API for mariacristoforo.com portfolio",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "resend": "^4.0.0"
+  }
 }
