@@ -42,7 +42,8 @@ export default async function handler(req, res) {
       ],
     });
 
-    evaluation = JSON.parse(message.content[0].text);
+    const raw = message.content[0].text.replace(/^```json\s*/i, "").replace(/```\s*$/, "").trim();
+    evaluation = JSON.parse(raw);
   } catch (err) {
     return res.status(500).json({ debug_error: err.message });
   }
