@@ -9,7 +9,7 @@ const skills = [
   { id: "java", category: "development", proficiency: "familiar", years_experience: 2, last_used: "2023" },
   { id: "figma", category: "design", proficiency: "fluent", years_experience: 4, last_used: "now" },
   { id: "ai-assisted-design", category: "design", proficiency: "active", years_experience: 2, last_used: "now" },
-  { id: "ux-research", category: "design", proficiency: "fluent", years_experience: 3, last_used: "now" },
+  { id: "ux-research", category: "design", proficiency: "active", years_experience: 3, last_used: "now" },
   { id: "cross-functional-collaboration", category: "workflows", proficiency: "active", years_experience: 4, last_used: "now" },
   { id: "design-to-code", category: "workflows", proficiency: "active", years_experience: 3, last_used: "now" },
   { id: "technical-writing", category: "workflows", proficiency: "active", years_experience: 3, last_used: "now" },

@@ -4,9 +4,9 @@ export default function handler(req, res) {
 
   res.status(200).json({
     name: "Maria Cristoforo",
-    title: "Product Designer & Engineer",
+    title: "Design Engineer",
     location: "San Francisco, CA",
-    bio: "Designer and engineer who builds at the intersection of product, code, and AI.",
+    bio: "thinks like a designer and executes like an engineer",
     status: "open_to_chat",
     currently_at: "Ocular AI",
     links: {

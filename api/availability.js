@@ -4,9 +4,13 @@ export default function handler(req, res) {
 
   res.status(200).json({
     status: "open_to_chat",
+    windows: [
+      { days: "Monday–Friday", hours: "12–1pm PT" },
+      { days: "Monday–Friday", hours: "after 5pm PT" }
+    ],
     preferred_contact: "email",
     email: "maria.h.cristoforo@gmail.com",
-    response_time: "a few days",
+    response_time: "asap, usually within a few days",
     note: "Happy to chat about roles, collaborations, or just interesting problems."
   });
 }
