@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theme Preview — Maria Cristoforo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link id="defaultFonts" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link id="themeFonts" rel="stylesheet" href="" />
+
+  <style>
+    :root {
+      --primary: #ea580c;
+      --primary-light: #f97316;
+      --primary-dark: #c2410c;
+      --bg: #F8F5EF;
+      --bg-dark: #1C1917;
+      --text: #1C1917;
+      --text-muted: #78716c;
+      --border: #e7e5e4;
+      --sidebar-w: 240px;
+      --font-heading: 'Instrument Serif', serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: color-mix(in srgb, var(--bg) 96%, var(--text) 4%);
+      border-right: 1px solid var(--border);
+      padding: 20px 0;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-logo {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 0 20px 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+
+    .sidebar-logo strong {
+      display: block;
+      font-size: 13px;
+      color: var(--text);
+      font-family: var(--font-heading);
+      font-style: italic;
+      margin-bottom: 2px;
+    }
+
+    .nav-group {
+      padding: 0 12px;
+      margin-bottom: 8px;
+    }
+
+    .nav-group-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 4px 8px;
+      margin-bottom: 2px;
+    }
+
+    .nav-item {
+      display: block;
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: default;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .nav-item:hover { background: color-mix(in srgb, var(--primary) 10%, transparent); color: var(--primary); }
+    .nav-item.active { background: color-mix(in srgb, var(--primary) 12%, transparent); color: var(--primary); font-weight: 500; }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      min-width: 0;
+      padding: 40px 48px;
+      max-width: 860px;
+    }
+
+    /* Issue strip */
+    .issue-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .issue-strip .badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--primary);
+    }
+
+    .issue-strip .date {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Hero */
+    h1.hero {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 64px;
+      line-height: 0.95;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .tagline {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 520px;
+    }
+
+    /* Meta grid */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .meta-cell .meta-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .meta-cell .meta-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .meta-cell .meta-value.accent { color: var(--primary); }
+
+    /* Section heading */
+    .section-heading {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 28px;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      padding: 18px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: default;
+      transition: border-color 0.15s;
+    }
+
+    .card:hover { border-color: var(--primary); }
+
+    .card-icon {
+      width: 28px;
+      height: 28px;
+      background: color-mix(in srgb, var(--primary) 12%, transparent);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Changelog rows */
+    .changelog {
+      margin-bottom: 40px;
+    }
+
+    .changelog-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .changelog-row:last-child { border-bottom: none; }
+
+    .version-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 7px;
+      background: color-mix(in srgb, var(--primary) 12%, transparent);
+      color: var(--primary);
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .changelog-content .entry-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .changelog-content .entry-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* Work cards */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .work-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .work-card-img {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    .work-card-body {
+      padding: 14px;
+      background: #fff;
+    }
+
+    .work-card-title {
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+
+    .work-card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Theme bar */
+    .theme-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--text);
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      z-index: 100;
+    }
+
+    .theme-bar .label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a8a29e;
+      margin-right: 8px;
+    }
+
+    .theme-bar .source {
+      color: #e7e5e4;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 400px;
+    }
+
+    .theme-bar .back-btn {
+      color: #a8a29e;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: color 0.1s;
+      flex-shrink: 0;
+    }
+
+    .theme-bar .back-btn:hover { color: #fff; }
+
+    body { padding-bottom: 48px; }
+
+    @media (max-width: 700px) {
+      .sidebar { display: none; }
+      .main { padding: 24px 20px; }
+      h1.hero { font-size: 40px; }
+      .meta-grid { grid-template-columns: 1fr 1fr; }
+      .card-grid, .work-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <strong>maria's personal guide</strong>
+      v3.3.0
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">About</div>
+      <a class="nav-item" href="#">Skills API</a>
+      <a class="nav-item" href="#">Changelog</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Case Studies</div>
+      <a class="nav-item active" href="#">Overview</a>
+      <a class="nav-item" href="#">ApiLens</a>
+      <a class="nav-item" href="#">Canvas Revamp</a>
+      <a class="nav-item" href="#">Audio Annotation</a>
+      <a class="nav-item" href="#">Portfolio</a>
+      <a class="nav-item" href="#">Design System Import</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Writing</div>
+      <a class="nav-item" href="#">Overview</a>
+      <a class="nav-item" href="#">Design Process Shift</a>
+      <a class="nav-item" href="#">UX Friction Coefficient</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">API Reference</div>
+      <a class="nav-item" href="#">GET /me</a>
+      <a class="nav-item" href="#">GET /skills</a>
+      <a class="nav-item" href="#">POST /hire</a>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="issue-strip">
+      <span class="badge">Maria Cristoforo — Vol. 1</span>
+      <span class="date">San Francisco, 2026</span>
+    </div>
+
+    <h1 class="hero">Designer.<br>Engineer.<br>Writer.</h1>
+
+    <p class="tagline">Product designer and engineer building AI-native tools. Currently at Ocular AI (YC W24).</p>
+
+    <div class="meta-grid">
+      <div class="meta-cell">
+        <div class="meta-label">Location</div>
+        <div class="meta-value">San Francisco, CA</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-label">Status</div>
+        <div class="meta-value accent">Open to new roles</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-label">Currently at</div>
+        <div class="meta-value">Ocular AI</div>
+      </div>
+    </div>
+
+    <div class="section-heading">Explore</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Skills API</div>
+        <div class="card-desc">Queryable index of skills, proficiencies, and recency of use.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📡</div>
+        <div class="card-title">Hire endpoint</div>
+        <div class="card-desc">POST a role, get an honest AI fit evaluation back in JSON.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">✍️</div>
+        <div class="card-title">Writing</div>
+        <div class="card-desc">Design process, friction coefficients, and working out loud.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎨</div>
+        <div class="card-title">Design System Import</div>
+        <div class="card-desc">Extract colors and fonts from any URL and preview them here.</div>
+      </div>
+    </div>
+
+    <div class="section-heading">Changelog</div>
+    <div class="changelog">
+      <div class="changelog-row">
+        <span class="version-badge">v3.3.0</span>
+        <div class="changelog-content">
+          <div class="entry-title">Joined Ocular AI as Product Designer & Engineer</div>
+          <div class="entry-meta">Winter 2026</div>
+        </div>
+      </div>
+      <div class="changelog-row">
+        <span class="version-badge">v3.2.0</span>
+        <div class="changelog-content">
+          <div class="entry-title">This portfolio — Mintlify adapted for personal knowledge</div>
+          <div class="entry-meta">Spring 2026</div>
+        </div>
+      </div>
+      <div class="changelog-row">
+        <span class="version-badge">v2.1.0</span>
+        <div class="changelog-content">
+          <div class="entry-title">Support Engineer at Hightouch</div>
+          <div class="entry-meta">Fall 2023</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-heading">Selected Work</div>
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="work-card-img" style="background: color-mix(in srgb, var(--primary) 8%, var(--bg));">
+          APILENS
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-title">ApiLens</div>
+          <div class="work-card-desc">AI-powered API change detection and PR annotation.</div>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-img" style="background: color-mix(in srgb, var(--primary) 5%, var(--bg));">
+          CANVAS
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-title">Canvas Annotation Revamp</div>
+          <div class="work-card-desc">Redesigned annotation tools for ML training data.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="theme-bar">
+    <div style="display:flex;align-items:center;min-width:0;overflow:hidden">
+      <span class="label">Themed from</span>
+      <span class="source" id="sourceLabel">—</span>
+    </div>
+    <button class="back-btn" onclick="window.close()">← Close preview</button>
+  </div>
+
+  <script>
+    (function applyTheme() {
+      const params = new URLSearchParams(window.location.search);
+      const primary = params.get('primary');
+      const primaryLight = params.get('primary_light');
+      const primaryDark = params.get('primary_dark');
+      const bgLight = params.get('bg_light');
+      const headingFont = params.get('heading_font');
+      const bodyFont = params.get('body_font');
+      const monoFont = params.get('mono_font');
+      const source = params.get('source');
+
+      const root = document.documentElement;
+
+      if (primary) root.style.setProperty('--primary', primary);
+      if (primaryLight) root.style.setProperty('--primary-light', primaryLight);
+      if (primaryDark) root.style.setProperty('--primary-dark', primaryDark);
+      if (bgLight) {
+        root.style.setProperty('--bg', bgLight);
+        document.body.style.background = bgLight;
+      }
+
+      if (headingFont) root.style.setProperty('--font-heading', `'${headingFont}', serif`);
+      if (bodyFont) root.style.setProperty('--font-body', `'${bodyFont}', sans-serif`);
+      if (monoFont) root.style.setProperty('--font-mono', `'${monoFont}', monospace`);
+
+      // Load extracted fonts from Google Fonts
+      const fontsToLoad = [...new Set([headingFont, bodyFont, monoFont].filter(Boolean))];
+      if (fontsToLoad.length) {
+        const families = fontsToLoad.map(f => `family=${encodeURIComponent(f)}:wght@400;500;600`).join('&');
+        document.getElementById('themeFonts').href =
+          `https://fonts.googleapis.com/css2?${families}&display=swap`;
+      }
+
+      if (source) {
+        document.getElementById('sourceLabel').textContent = source;
+        try {
+          document.title = `Theme Preview — ${new URL(source).hostname}`;
+        } catch {}
+      }
+    })();
+  </script>
+</body>
+</html>
