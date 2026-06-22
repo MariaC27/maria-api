@@ -23,6 +23,7 @@
       --font-heading: 'Instrument Serif', serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+      --radius: 8px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -88,7 +89,7 @@
     .nav-item {
       display: block;
       padding: 5px 8px;
-      border-radius: 6px;
+      border-radius: calc(var(--radius) * 0.6);
       font-size: 13px;
       color: var(--text-muted);
       text-decoration: none;
@@ -157,7 +158,7 @@
       margin-bottom: 40px;
       padding: 20px;
       background: #fff;
-      border-radius: 10px;
+      border-radius: var(--radius);
       border: 1px solid var(--border);
     }
 
@@ -199,7 +200,7 @@
       padding: 18px;
       background: #fff;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: var(--radius);
       cursor: default;
       transition: border-color 0.15s;
     }
@@ -210,7 +211,7 @@
       width: 28px;
       height: 28px;
       background: color-mix(in srgb, var(--primary) 12%, transparent);
-      border-radius: 6px;
+      border-radius: calc(var(--radius) * 0.6);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -279,7 +280,7 @@
 
     .work-card {
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: var(--radius);
       overflow: hidden;
       cursor: default;
     }
@@ -523,6 +524,7 @@
       const headingFont = params.get('heading_font');
       const bodyFont = params.get('body_font');
       const monoFont = params.get('mono_font');
+      const borderRadius = params.get('border_radius');
       const source = params.get('source');
 
       const root = document.documentElement;
@@ -538,6 +540,7 @@
       if (headingFont) root.style.setProperty('--font-heading', `'${headingFont}', serif`);
       if (bodyFont) root.style.setProperty('--font-body', `'${bodyFont}', sans-serif`);
       if (monoFont) root.style.setProperty('--font-mono', `'${monoFont}', monospace`);
+      if (borderRadius) root.style.setProperty('--radius', borderRadius);
 
       // Load extracted fonts from Google Fonts
       const fontsToLoad = [...new Set([headingFont, bodyFont, monoFont].filter(Boolean))];
