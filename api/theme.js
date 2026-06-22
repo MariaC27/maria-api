@@ -64,20 +64,25 @@ function filterCss(css, ctaClasses = []) {
 }
 
 // Extract non-trivial fill/stroke colors from SVG elements in HTML.
-// Logos and icons almost always encode the brand color as a fill attribute directly in HTML.
+// Returns colors with their occurrence count — repeated colors are own-brand;
+// colors that appear only once are likely third-party logos (Microsoft, Google, etc.).
 function extractSvgColors(html) {
   const IGNORE = new Set(["none", "transparent", "currentcolor", "inherit", "white", "black", "#fff", "#000", "#ffffff", "#000000"]);
-  const seen = new Set();
-  const colors = [];
+  const counts = {};
 
   for (const match of html.matchAll(/(?:fill|stroke)=["']([^"']+)["']/gi)) {
-    const v = match[1].trim().toLowerCase();
-    if (!IGNORE.has(v) && !seen.has(v) && (v.startsWith("#") || v.startsWith("rgb"))) {
-      seen.add(v);
-      colors.push(match[1].trim());
+    const raw = match[1].trim();
+    const v = raw.toLowerCase();
+    if (!IGNORE.has(v) && (v.startsWith("#") || v.startsWith("rgb"))) {
+      counts[v] = (counts[v] || 0) + 1;
     }
   }
-  return colors.slice(0, 20); // cap to avoid noise
+
+  // Return sorted by frequency descending, capped to top 15
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 15)
+    .map(([color, count]) => ({ color, count }));
 }
 
 // Find class names on <a> and <button> elements that suggest CTA / primary action.
@@ -171,8 +176,20 @@ export default async function handler(req, res) {
   // Call Claude Haiku
   let tokens;
   try {
+    // Split into repeated (own-brand candidates) vs. single-occurrence (likely third-party logos)
+    const repeatedSvgColors = svgColors.filter((c) => c.count >= 2);
+    const singleSvgColors = svgColors.filter((c) => c.count === 1);
     const svgSection = svgColors.length
-      ? `SVG fill/stroke colors found in page HTML (logos, icons — high confidence for brand color):\n${svgColors.join(", ")}`
+      ? [
+          repeatedSvgColors.length
+            ? `SVG colors appearing 2+ times (likely own-brand — logo, icons, accents):\n${repeatedSvgColors.map((c) => `${c.color} (${c.count}x)`).join(", ")}`
+            : "",
+          singleSvgColors.length
+            ? `SVG colors appearing only once (likely third-party logos — Microsoft, Google, partner icons — DO NOT use as primary):\n${singleSvgColors.map((c) => c.color).join(", ")}`
+            : "",
+        ]
+          .filter(Boolean)
+          .join("\n")
       : "";
 
     const ctaSection = ctaClasses.length
@@ -208,7 +225,9 @@ Respond with valid JSON only, no markdown, no explanation:
 }
 
 Decision rules:
-- PRIMARY = the color a human would immediately identify as the brand accent when skimming the page. Check in this priority order: (1) CSS custom properties like --color-primary, --brand, --accent; (2) SVG fill colors listed above — these often ARE the logo/icon color and therefore the brand color; (3) background-color on CTA button selectors. Do NOT pick colors that only appear in hero illustrations or animated backgrounds.
+- PRIMARY = the color a human would immediately identify as the brand accent when skimming the page. Check in this priority order: (1) CSS custom properties like --color-primary, --brand, --accent; (2) SVG colors listed as appearing 2+ times — repeated use means it's the site's own color; (3) background-color on CTA button selectors.
+- NEVER use SVG colors marked as "appearing only once" — those are third-party logos (Microsoft, Google, partner icons) and have nothing to do with the site's own brand.
+- If a site is genuinely monochromatic (black, white, and grays only), that IS the correct answer. Set primary to "#000000", background_light to "#ffffff", background_dark to "#111111". Do not invent a color.
 - BORDER_RADIUS: look at border-radius values on button/card selectors. "none"=0px sharp corners, "small"=2-4px, "medium"=6-8px, "large"=12-16px, "pill"=9999px/50%.
 - If no font found, default to "Inter" / "Inter" / "JetBrains Mono".
 - If no background found, default to "#ffffff" / "#111111".
