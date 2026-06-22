@@ -8,5 +8,9 @@
         { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
       ]
     }
+  ],
+  "rewrites": [
+    { "source": "/extractor", "destination": "/extractor.html" },
+    { "source": "/preview", "destination": "/preview.html" }
   ]
 }

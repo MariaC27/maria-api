@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System Extractor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #F8F5EF;
+      color: #1C1917;
+      padding: 20px;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #78716c;
+      margin-bottom: 6px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    input[type="url"] {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1.5px solid #e7e5e4;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      background: #fff;
+      color: #1C1917;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input[type="url"]:focus {
+      border-color: #ea580c;
+    }
+
+    input[type="url"]::placeholder {
+      color: #a8a29e;
+    }
+
+    button.generate {
+      padding: 8px 16px;
+      background: #ea580c;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    button.generate:hover { background: #c2410c; }
+    button.generate:disabled { background: #fdba74; cursor: not-allowed; }
+
+    .spinner {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      color: #78716c;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .spinner.active { display: flex; }
+
+    .spinner-ring {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #e7e5e4;
+      border-top-color: #ea580c;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .results { display: none; }
+    .results.visible { display: block; }
+
+    .section-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #78716c;
+      margin-bottom: 8px;
+      margin-top: 16px;
+    }
+
+    .swatches {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .swatch-color {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .swatch-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #78716c;
+      text-align: center;
+    }
+
+    .font-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .font-chip {
+      background: #fff;
+      border: 1.5px solid #e7e5e4;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+
+    .font-chip .role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #78716c;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 1px;
+    }
+
+    .code-block {
+      background: #fff;
+      border: 1.5px solid #e7e5e4;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      color: #44403c;
+      overflow-x: auto;
+      white-space: pre;
+      margin-bottom: 4px;
+    }
+
+    .preview-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding: 9px 18px;
+      background: #1C1917;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .preview-btn:hover { background: #44403c; }
+
+    .error-msg {
+      display: none;
+      background: #fff1f0;
+      border: 1.5px solid #fca5a5;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #b91c1c;
+      margin-bottom: 8px;
+    }
+
+    .error-msg.visible { display: block; }
+
+    .source-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #78716c;
+      margin-bottom: 12px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="label">Enter a website URL</div>
+  <div class="input-row">
+    <input type="url" id="urlInput" placeholder="https://stripe.com" autocomplete="off" />
+    <button class="generate" id="generateBtn" onclick="runExtractor()">Extract</button>
+  </div>
+
+  <div class="spinner" id="spinner">
+    <div class="spinner-ring"></div>
+    Fetching and analyzing design tokens…
+  </div>
+
+  <div class="error-msg" id="errorMsg"></div>
+
+  <div class="results" id="results">
+    <div class="source-url" id="sourceUrl"></div>
+
+    <div class="section-title">Colors</div>
+    <div class="swatches" id="swatches"></div>
+
+    <div class="section-title">Fonts</div>
+    <div class="font-row" id="fonts"></div>
+
+    <div class="section-title">docs.json patch</div>
+    <div class="code-block" id="codeBlock"></div>
+
+    <a class="preview-btn" id="previewBtn" href="#" target="_blank">
+      View full preview →
+    </a>
+  </div>
+
+  <script>
+    let lastTokens = null;
+
+    async function runExtractor() {
+      const input = document.getElementById('urlInput');
+      const btn = document.getElementById('generateBtn');
+      const spinner = document.getElementById('spinner');
+      const results = document.getElementById('results');
+      const errorMsg = document.getElementById('errorMsg');
+
+      const url = input.value.trim();
+      if (!url) { input.focus(); return; }
+
+      btn.disabled = true;
+      spinner.classList.add('active');
+      results.classList.remove('visible');
+      errorMsg.classList.remove('visible');
+
+      try {
+        const res = await fetch('/api/theme', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || data.error) {
+          throw new Error(data.error || `Server error ${res.status}`);
+        }
+
+        lastTokens = data;
+        renderResults(data);
+      } catch (err) {
+        errorMsg.textContent = err.message || 'Something went wrong. Try another URL.';
+        errorMsg.classList.add('visible');
+      } finally {
+        btn.disabled = false;
+        spinner.classList.remove('active');
+      }
+    }
+
+    function renderResults(data) {
+      document.getElementById('sourceUrl').textContent = data.source_url;
+
+      // Swatches
+      const swatchDefs = [
+        { key: 'primary', label: 'Primary' },
+        { key: 'primary_light', label: 'Light' },
+        { key: 'primary_dark', label: 'Dark' },
+        { key: 'background_light', label: 'BG Light' },
+        { key: 'background_dark', label: 'BG Dark' },
+      ];
+      const swatchEl = document.getElementById('swatches');
+      swatchEl.innerHTML = swatchDefs.map(({ key, label }) => `
+        <div class="swatch">
+          <div class="swatch-color" style="background:${data.colors[key]}"></div>
+          <div class="swatch-label">${data.colors[key]}<br>${label}</div>
+        </div>
+      `).join('');
+
+      // Fonts
+      const fontDefs = [
+        { role: 'Heading', value: data.fonts.heading },
+        { role: 'Body', value: data.fonts.body },
+        { role: 'Mono', value: data.fonts.mono },
+      ];
+      document.getElementById('fonts').innerHTML = fontDefs.map(({ role, value }) => `
+        <div class="font-chip">
+          <span class="role">${role}</span>
+          ${value}
+        </div>
+      `).join('');
+
+      // Code block
+      const patch = data.mintlify_patch.docs_json;
+      document.getElementById('codeBlock').textContent = JSON.stringify(patch, null, 2);
+
+      // Preview button
+      const params = new URLSearchParams({
+        primary: data.colors.primary,
+        primary_light: data.colors.primary_light,
+        primary_dark: data.colors.primary_dark,
+        bg_light: data.colors.background_light,
+        bg_dark: data.colors.background_dark,
+        heading_font: data.fonts.heading,
+        body_font: data.fonts.body,
+        mono_font: data.fonts.mono,
+        source: data.source_url,
+      });
+      document.getElementById('previewBtn').href = `/preview?${params.toString()}`;
+
+      document.getElementById('results').classList.add('visible');
+    }
+
+    document.getElementById('urlInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') runExtractor();
+    });
+  </script>
+</body>
+</html>
