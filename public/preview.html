@@ -6,24 +6,25 @@
   <title>Theme Preview — Maria Cristoforo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link id="defaultFonts" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link id="themeFonts" rel="stylesheet" href="" />
-
   <style>
     :root {
       --primary: #ea580c;
       --primary-light: #f97316;
       --primary-dark: #c2410c;
       --bg: #F8F5EF;
-      --bg-dark: #1C1917;
-      --text: #1C1917;
-      --text-muted: #78716c;
-      --border: #e7e5e4;
-      --sidebar-w: 240px;
+      --sidebar-bg: #ffffff;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --text-subtle: #9ca3af;
+      --border: rgba(0,0,0,0.08);
+      --border-strong: rgba(0,0,0,0.15);
+      --card-bg: rgba(255,255,255,0.6);
+      --radius: 0.75rem;
       --font-heading: 'Instrument Serif', serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --radius: 8px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,288 +39,367 @@
       line-height: 1.6;
     }
 
-    /* Sidebar */
+    /* ── Sidebar ── */
     .sidebar {
-      width: var(--sidebar-w);
-      background: color-mix(in srgb, var(--bg) 96%, var(--text) 4%);
-      border-right: 1px solid var(--border);
-      padding: 20px 0;
+      width: 256px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid #e7e5e4;
+      padding: 20px 0 40px;
       flex-shrink: 0;
       position: sticky;
       top: 0;
       height: 100vh;
       overflow-y: auto;
-      display: flex;
-      flex-direction: column;
     }
 
     .sidebar-logo {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-muted);
-      padding: 0 20px 16px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 12px;
-    }
-
-    .sidebar-logo strong {
-      display: block;
-      font-size: 13px;
-      color: var(--text);
-      font-family: var(--font-heading);
-      font-style: italic;
-      margin-bottom: 2px;
-    }
-
-    .nav-group {
-      padding: 0 12px;
-      margin-bottom: 8px;
-    }
-
-    .nav-group-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      padding: 4px 8px;
-      margin-bottom: 2px;
-    }
-
-    .nav-item {
-      display: block;
-      padding: 5px 8px;
-      border-radius: calc(var(--radius) * 0.6);
-      font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: none;
-      cursor: default;
-      transition: background 0.1s, color 0.1s;
-    }
-
-    .nav-item:hover { background: color-mix(in srgb, var(--primary) 10%, transparent); color: var(--primary); }
-    .nav-item.active { background: color-mix(in srgb, var(--primary) 12%, transparent); color: var(--primary); font-weight: 500; }
-
-    /* Main content */
-    .main {
-      flex: 1;
-      min-width: 0;
-      padding: 40px 48px;
-      max-width: 860px;
-    }
-
-    /* Issue strip */
-    .issue-strip {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 32px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .issue-strip .badge {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--primary);
-    }
-
-    .issue-strip .date {
-      font-family: var(--font-heading);
-      font-style: italic;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* Hero */
-    h1.hero {
-      font-family: var(--font-heading);
-      font-style: italic;
-      font-size: 64px;
-      line-height: 0.95;
-      margin-bottom: 20px;
-      color: var(--text);
-    }
-
-    .tagline {
-      font-size: 16px;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      max-width: 520px;
-    }
-
-    /* Meta grid */
-    .meta-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 40px;
-      padding: 20px;
-      background: #fff;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-    }
-
-    .meta-cell .meta-label {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: 3px;
-    }
-
-    .meta-cell .meta-value {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .meta-cell .meta-value.accent { color: var(--primary); }
-
-    /* Section heading */
-    .section-heading {
-      font-family: var(--font-heading);
-      font-style: italic;
-      font-size: 28px;
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-
-    /* Cards */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 40px;
-    }
-
-    .card {
-      padding: 18px;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      cursor: default;
-      transition: border-color 0.15s;
-    }
-
-    .card:hover { border-color: var(--primary); }
-
-    .card-icon {
-      width: 28px;
-      height: 28px;
-      background: color-mix(in srgb, var(--primary) 12%, transparent);
-      border-radius: calc(var(--radius) * 0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-
-    .card-title {
-      font-weight: 600;
-      font-size: 13px;
+      padding: 0 16px 16px;
       margin-bottom: 4px;
     }
 
-    .card-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* Changelog rows */
-    .changelog {
-      margin-bottom: 40px;
-    }
-
-    .changelog-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .changelog-row:last-child { border-bottom: none; }
-
-    .version-badge {
+    .sidebar-logo-text {
       font-family: var(--font-mono);
-      font-size: 10px;
-      padding: 2px 7px;
-      background: color-mix(in srgb, var(--primary) 12%, transparent);
-      color: var(--primary);
-      border-radius: 4px;
-      white-space: nowrap;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .changelog-content .entry-title {
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 2px;
-    }
-
-    .changelog-content .entry-meta {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-muted);
-    }
-
-    /* Work cards */
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 40px;
-    }
-
-    .work-card {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      cursor: default;
-    }
-
-    .work-card-img {
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-    }
-
-    .work-card-body {
-      padding: 14px;
-      background: #fff;
-    }
-
-    .work-card-title {
-      font-weight: 600;
-      font-size: 13px;
-      margin-bottom: 3px;
-    }
-
-    .work-card-desc {
       font-size: 12px;
       color: var(--text-muted);
       line-height: 1.4;
     }
 
-    /* Theme bar */
+    .nav-group { margin-bottom: 4px; }
+
+    .nav-group-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-subtle);
+      padding: 8px 16px 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px 5px 16px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      cursor: default;
+      border-radius: 6px;
+      margin: 0 4px;
+    }
+
+    .nav-item:hover { background: rgba(0,0,0,0.04); }
+    .nav-item.active { color: var(--primary); font-weight: 500; background: rgba(0,0,0,0.04); }
+
+    .nav-icon {
+      width: 16px;
+      height: 16px;
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    .nav-item.active .nav-icon { opacity: 1; color: var(--primary); }
+
+    /* ── Main ── */
+    .main {
+      flex: 1;
+      min-width: 0;
+      padding-bottom: 60px;
+    }
+
+    .content {
+      max-width: 832px;
+      margin: 0 auto;
+      padding: 40px 48px;
+    }
+
+    /* ── Hero ── */
+    .hero { margin-bottom: 32px; }
+
+    .hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 24px;
+    }
+
+    .hero-text { max-width: 540px; }
+
+    .intro-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 72px;
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .tagline {
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 9999px;
+      background: #e7e5e4;
+      flex-shrink: 0;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--text-subtle);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Meta grid ── */
+    .meta-grid {
+      border-top: 1px solid var(--border-strong);
+      border-bottom: 1px solid var(--border-strong);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 16px 0;
+      margin-top: 0;
+    }
+
+    .meta-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-right: 24px;
+    }
+
+    .meta-cell + .meta-cell {
+      padding-left: 24px;
+      padding-right: 24px;
+      border-left: 1px solid var(--border-strong);
+    }
+
+    .meta-cell:last-child { border-right: none; }
+
+    .meta-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-subtle);
+    }
+
+    .meta-value {
+      font-size: 17px;
+      color: var(--text-muted);
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background: #22c55e;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+
+    .meta-value.status {
+      display: flex;
+      align-items: center;
+    }
+
+    /* ── Prose ── */
+    .prose-section {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    .dropcap {
+      float: left;
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 72px;
+      line-height: 0.85;
+      margin-right: 0.12em;
+      margin-top: 0.08em;
+      color: var(--primary);
+    }
+
+    /* ── Dividers ── */
+    hr {
+      border: none;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      margin: 32px 0;
+    }
+
+    /* ── Section headings ── */
+    h2 {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    /* ── Cards (Explore + Work) ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid rgba(0,0,0,0.09);
+      border-radius: var(--radius);
+      background: var(--card-bg);
+      overflow: hidden;
+      cursor: default;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .card:hover {
+      border-color: rgba(0,0,0,0.18);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .card-img {
+      height: 160px;
+      padding: 12px 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-subtle);
+      overflow: hidden;
+    }
+
+    .card-img-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: calc(var(--radius) - 4px);
+      background: color-mix(in srgb, var(--primary) 6%, var(--bg));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-body {
+      padding: 16px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .card-icon-wrap {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      opacity: 0.8;
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Changelog ── */
+    .changelog { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+
+    .cl-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(0,0,0,0.09);
+      border-radius: var(--radius);
+      background: var(--card-bg);
+      padding: 12px 16px;
+    }
+
+    .cl-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .cl-version {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .cl-title {
+      font-size: 13.5px;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cl-date {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-subtle);
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+
+    .view-all {
+      font-size: 13px;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: default;
+      padding-left: 2px;
+    }
+
+    /* ── Theme bar ── */
     .theme-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: var(--text);
+      background: #1c1917;
       color: #fff;
       padding: 10px 20px;
       display: flex;
@@ -329,218 +409,337 @@
       z-index: 100;
     }
 
-    .theme-bar .label {
+    .theme-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .theme-bar-label {
       font-family: var(--font-mono);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #a8a29e;
-      margin-right: 8px;
-    }
-
-    .theme-bar .source {
-      color: #e7e5e4;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      max-width: 400px;
-    }
-
-    .theme-bar .back-btn {
-      color: #a8a29e;
-      text-decoration: none;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px 8px;
-      border-radius: 4px;
-      transition: color 0.1s;
+      color: #78716c;
       flex-shrink: 0;
     }
 
-    .theme-bar .back-btn:hover { color: #fff; }
+    .theme-bar-source {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #e7e5e4;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
-    body { padding-bottom: 48px; }
+    .close-btn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #78716c;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      transition: color 0.1s;
+    }
 
-    @media (max-width: 700px) {
+    .close-btn:hover { color: #fff; }
+
+    body { padding-bottom: 44px; }
+
+    @media (max-width: 720px) {
       .sidebar { display: none; }
-      .main { padding: 24px 20px; }
-      h1.hero { font-size: 40px; }
-      .meta-grid { grid-template-columns: 1fr 1fr; }
-      .card-grid, .work-grid { grid-template-columns: 1fr; }
+      .content { padding: 24px 20px; }
+      h1 { font-size: 48px; }
+      .meta-grid { grid-template-columns: 1fr; gap: 12px; }
+      .meta-cell + .meta-cell { border-left: none; padding-left: 0; border-top: 1px solid var(--border-strong); padding-top: 12px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .hero-top { flex-direction: column-reverse; gap: 16px; }
+      .avatar { width: 80px; height: 80px; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Sidebar -->
   <nav class="sidebar">
     <div class="sidebar-logo">
-      <strong>maria's personal guide</strong>
-      v3.3.0
+      <div class="sidebar-logo-text">maria's personal guide</div>
     </div>
+
     <div class="nav-group">
       <div class="nav-group-label">About</div>
-      <a class="nav-item" href="#">Skills API</a>
-      <a class="nav-item" href="#">Changelog</a>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        Skills
+      </div>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg>
+        Changelog
+      </div>
     </div>
+
     <div class="nav-group">
       <div class="nav-group-label">Case Studies</div>
-      <a class="nav-item active" href="#">Overview</a>
-      <a class="nav-item" href="#">ApiLens</a>
-      <a class="nav-item" href="#">Canvas Revamp</a>
-      <a class="nav-item" href="#">Audio Annotation</a>
-      <a class="nav-item" href="#">Portfolio</a>
-      <a class="nav-item" href="#">Design System Import</a>
+      <div class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        Overview
+      </div>
+      <div class="nav-item">ApiLens</div>
+      <div class="nav-item">Canvas & Annotation Revamp</div>
+      <div class="nav-item">Turn-Based Audio Annotation</div>
+      <div class="nav-item">Portfolio</div>
+      <div class="nav-item active">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/></svg>
+        Design System Import
+      </div>
     </div>
+
     <div class="nav-group">
       <div class="nav-group-label">Writing</div>
-      <a class="nav-item" href="#">Overview</a>
-      <a class="nav-item" href="#">Design Process Shift</a>
-      <a class="nav-item" href="#">UX Friction Coefficient</a>
+      <div class="nav-item">Overview</div>
+      <div class="nav-item">The Design Process Shift</div>
+      <div class="nav-item">UX Friction Coefficient</div>
     </div>
+
     <div class="nav-group">
       <div class="nav-group-label">API Reference</div>
-      <a class="nav-item" href="#">GET /me</a>
-      <a class="nav-item" href="#">GET /skills</a>
-      <a class="nav-item" href="#">POST /hire</a>
+      <div class="nav-item">GET /me</div>
+      <div class="nav-item">GET /skills</div>
+      <div class="nav-item">GET /availability</div>
+      <div class="nav-item">POST /hire</div>
+      <div class="nav-item">POST /contact</div>
     </div>
   </nav>
 
+  <!-- Main content -->
   <main class="main">
-    <div class="issue-strip">
-      <span class="badge">Maria Cristoforo — Vol. 1</span>
-      <span class="date">San Francisco, 2026</span>
-    </div>
+    <div class="content">
 
-    <h1 class="hero">Designer.<br>Engineer.<br>Writer.</h1>
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-top">
+          <div class="hero-text">
+            <div class="intro-label">Introduction</div>
+            <h1>Maria Cristoforo</h1>
+            <p class="tagline">thinks like a designer, executes like an engineer</p>
+          </div>
+          <div class="avatar">photo</div>
+        </div>
 
-    <p class="tagline">Product designer and engineer building AI-native tools. Currently at Ocular AI (YC W24).</p>
+        <!-- Metadata grid -->
+        <div class="meta-grid">
+          <div class="meta-cell">
+            <span class="meta-label">Location</span>
+            <span class="meta-value">San Francisco, CA</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-label">Status</span>
+            <span class="meta-value status">
+              <span class="status-dot"></span>Open to chat
+            </span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-label">Currently building at</span>
+            <span class="meta-value">Ocular AI (YC W24)</span>
+          </div>
+        </div>
+      </div>
 
-    <div class="meta-grid">
-      <div class="meta-cell">
-        <div class="meta-label">Location</div>
-        <div class="meta-value">San Francisco, CA</div>
+      <!-- Opening prose -->
+      <div class="prose-section">
+        <p><span class="dropcap">I</span>work at the intersection of design and engineering, owning features end-to-end on small, fast-moving teams. I consider design principles throughout the ideation and development process, rather than treating design as a separate step. My work is shaped by an interdisciplinary background in computer science and human-centered design, along with interests in psychology and writing.</p>
       </div>
-      <div class="meta-cell">
-        <div class="meta-label">Status</div>
-        <div class="meta-value accent">Open to new roles</div>
-      </div>
-      <div class="meta-cell">
-        <div class="meta-label">Currently at</div>
-        <div class="meta-value">Ocular AI</div>
-      </div>
-    </div>
 
-    <div class="section-heading">Explore</div>
-    <div class="card-grid">
-      <div class="card">
-        <div class="card-icon">📋</div>
-        <div class="card-title">Skills API</div>
-        <div class="card-desc">Queryable index of skills, proficiencies, and recency of use.</div>
-      </div>
-      <div class="card">
-        <div class="card-icon">📡</div>
-        <div class="card-title">Hire endpoint</div>
-        <div class="card-desc">POST a role, get an honest AI fit evaluation back in JSON.</div>
-      </div>
-      <div class="card">
-        <div class="card-icon">✍️</div>
-        <div class="card-title">Writing</div>
-        <div class="card-desc">Design process, friction coefficients, and working out loud.</div>
-      </div>
-      <div class="card">
-        <div class="card-icon">🎨</div>
-        <div class="card-title">Design System Import</div>
-        <div class="card-desc">Extract colors and fonts from any URL and preview them here.</div>
-      </div>
-    </div>
+      <hr />
 
-    <div class="section-heading">Changelog</div>
-    <div class="changelog">
-      <div class="changelog-row">
-        <span class="version-badge">v3.3.0</span>
-        <div class="changelog-content">
-          <div class="entry-title">Joined Ocular AI as Product Designer & Engineer</div>
-          <div class="entry-meta">Winter 2026</div>
+      <!-- Explore -->
+      <div>
+        <h2>Explore</h2>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-header">
+                <div class="card-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                </div>
+                <div class="card-title">Case Studies</div>
+              </div>
+              <div class="card-desc">Selected projects with description of the problem, my approach, outcomes and learnings.</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="card-header">
+                <div class="card-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg>
+                </div>
+                <div class="card-title">Writing</div>
+              </div>
+              <div class="card-desc">My thoughts on design engineering, UX friction, and building in small teams.</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="card-header">
+                <div class="card-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </div>
+                <div class="card-title">Skills</div>
+              </div>
+              <div class="card-desc">API-style reference of languages, tools, and frameworks I know and how well.</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="card-header">
+                <div class="card-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <div class="card-title">Experience</div>
+              </div>
+              <div class="card-desc">Roles, companies, and milestones formatted as a software changelog.</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="changelog-row">
-        <span class="version-badge">v3.2.0</span>
-        <div class="changelog-content">
-          <div class="entry-title">This portfolio — Mintlify adapted for personal knowledge</div>
-          <div class="entry-meta">Spring 2026</div>
-        </div>
-      </div>
-      <div class="changelog-row">
-        <span class="version-badge">v2.1.0</span>
-        <div class="changelog-content">
-          <div class="entry-title">Support Engineer at Hightouch</div>
-          <div class="entry-meta">Fall 2023</div>
-        </div>
-      </div>
-    </div>
 
-    <div class="section-heading">Selected Work</div>
-    <div class="work-grid">
-      <div class="work-card">
-        <div class="work-card-img" style="background: color-mix(in srgb, var(--primary) 8%, var(--bg));">
-          APILENS
+      <hr />
+
+      <!-- Changelog -->
+      <div>
+        <h2>Changelog</h2>
+        <div class="changelog">
+          <div class="cl-row">
+            <div class="cl-left">
+              <span class="cl-version">v3.0.0</span>
+              <span class="cl-title">Joined Ocular AI as a Design Engineer</span>
+            </div>
+            <span class="cl-date">Winter 2025</span>
+          </div>
+          <div class="cl-row">
+            <div class="cl-left">
+              <span class="cl-version">v2.0.0</span>
+              <span class="cl-title">Graduated Dartmouth, CS + Human-Centered Design</span>
+            </div>
+            <span class="cl-date">Spring 2024</span>
+          </div>
+          <div class="cl-row">
+            <div class="cl-left">
+              <span class="cl-version">v1.0.0</span>
+              <span class="cl-title">First design and development work at DALI Lab, Dartmouth</span>
+            </div>
+            <span class="cl-date">Spring 2021</span>
+          </div>
         </div>
-        <div class="work-card-body">
-          <div class="work-card-title">ApiLens</div>
-          <div class="work-card-desc">AI-powered API change detection and PR annotation.</div>
+        <div class="view-all">View full changelog →</div>
+      </div>
+
+      <hr />
+
+      <!-- Selected Work -->
+      <div>
+        <h2>Selected Work</h2>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-img">
+              <div class="card-img-inner">apilens</div>
+            </div>
+            <div class="card-body">
+              <div class="card-header">
+                <div class="card-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </div>
+                <div class="card-title">ApiLens</div>
+              </div>
+              <div class="card-desc">Open source versioning + visual diff tool for OpenAPI specs. Designed, built, and published to PyPI.</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-img">
+              <div class="card-img-inner">canvas</div>
+            </div>
+            <div class="card-body">
+              <div class="card-header">
+                <div class="card-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13 12H3"/></svg>
+                </div>
+                <div class="card-title">Canvas &amp; Annotation Revamp</div>
+              </div>
+              <div class="card-desc">Full design and implementation process for revamping Ocular's image annotation canvas.</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-img">
+              <div class="card-img-inner">audio</div>
+            </div>
+            <div class="card-body">
+              <div class="card-header">
+                <div class="card-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10v3M6 6v11M10 3v18M14 8v7M18 5v13M22 10v3"/></svg>
+                </div>
+                <div class="card-title">Turn-Based Audio Annotation</div>
+              </div>
+              <div class="card-desc">New annotation interface for multi-speaker audio, built using an AI-assisted design process.</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-img">
+              <div class="card-img-inner">portfolio</div>
+            </div>
+            <div class="card-body">
+              <div class="card-header">
+                <div class="card-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+                <div class="card-title">Portfolio</div>
+              </div>
+              <div class="card-desc">How I adapted Mintlify, an AI-native product documentation platform, into a personal portfolio.</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="work-card">
-        <div class="work-card-img" style="background: color-mix(in srgb, var(--primary) 5%, var(--bg));">
-          CANVAS
-        </div>
-        <div class="work-card-body">
-          <div class="work-card-title">Canvas Annotation Revamp</div>
-          <div class="work-card-desc">Redesigned annotation tools for ML training data.</div>
-        </div>
-      </div>
+
     </div>
   </main>
 
+  <!-- Theme bar -->
   <div class="theme-bar">
-    <div style="display:flex;align-items:center;min-width:0;overflow:hidden">
-      <span class="label">Themed from</span>
-      <span class="source" id="sourceLabel">—</span>
+    <div class="theme-bar-left">
+      <span class="theme-bar-label">Themed from</span>
+      <span class="theme-bar-source" id="sourceLabel">—</span>
     </div>
-    <button class="back-btn" onclick="window.close()">← Close preview</button>
+    <button class="close-btn" onclick="window.close()">← Close preview</button>
   </div>
 
   <script>
     (function applyTheme() {
       const params = new URLSearchParams(window.location.search);
-      const primary = params.get('primary');
+      const primary     = params.get('primary');
       const primaryLight = params.get('primary_light');
-      const primaryDark = params.get('primary_dark');
-      const bgLight = params.get('bg_light');
-      const headingFont = params.get('heading_font');
-      const bodyFont = params.get('body_font');
-      const monoFont = params.get('mono_font');
+      const primaryDark  = params.get('primary_dark');
+      const bgLight      = params.get('bg_light');
+      const headingFont  = params.get('heading_font');
+      const bodyFont     = params.get('body_font');
+      const monoFont     = params.get('mono_font');
       const borderRadius = params.get('border_radius');
-      const source = params.get('source');
+      const source       = params.get('source');
 
       const root = document.documentElement;
-
-      if (primary) root.style.setProperty('--primary', primary);
+      if (primary)      root.style.setProperty('--primary', primary);
       if (primaryLight) root.style.setProperty('--primary-light', primaryLight);
-      if (primaryDark) root.style.setProperty('--primary-dark', primaryDark);
-      if (bgLight) {
-        root.style.setProperty('--bg', bgLight);
-        document.body.style.background = bgLight;
-      }
+      if (primaryDark)  root.style.setProperty('--primary-dark', primaryDark);
+      if (bgLight)      root.style.setProperty('--bg', bgLight);
+      if (borderRadius) root.style.setProperty('--radius', borderRadius);
 
       if (headingFont) root.style.setProperty('--font-heading', `'${headingFont}', serif`);
-      if (bodyFont) root.style.setProperty('--font-body', `'${bodyFont}', sans-serif`);
-      if (monoFont) root.style.setProperty('--font-mono', `'${monoFont}', monospace`);
-      if (borderRadius) root.style.setProperty('--radius', borderRadius);
+      if (bodyFont)    root.style.setProperty('--font-body',    `'${bodyFont}', sans-serif`);
+      if (monoFont)    root.style.setProperty('--font-mono',    `'${monoFont}', monospace`);
 
       // Load extracted fonts from Google Fonts
       const fontsToLoad = [...new Set([headingFont, bodyFont, monoFont].filter(Boolean))];
@@ -552,9 +751,7 @@
 
       if (source) {
         document.getElementById('sourceLabel').textContent = source;
-        try {
-          document.title = `Theme Preview — ${new URL(source).hostname}`;
-        } catch {}
+        try { document.title = `Theme Preview — ${new URL(source).hostname}`; } catch {}
       }
     })();
   </script>
